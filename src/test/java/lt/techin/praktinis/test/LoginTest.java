@@ -2,6 +2,7 @@ package lt.techin.praktinis.test;
 
 import lt.techin.praktinis.LoginPage;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -13,9 +14,14 @@ import java.util.List;
 
 public class LoginTest extends BaseTest {
 
+private LoginPage loginPage;
+    @BeforeEach
+    void setUp() {
+        loginPage = new LoginPage(driver);
+    }
+
     @Test
     void corectLoginCredentials() {
-        LoginPage loginPage = new LoginPage(driver);
 
         loginPage.enterUsername("Admin");
 
@@ -27,7 +33,6 @@ public class LoginTest extends BaseTest {
     }
     @Test
     void wrongLoginCredentials() {
-        LoginPage loginPage = new LoginPage(driver);
 
         loginPage.enterUsername("Admi");
 
@@ -37,5 +42,21 @@ public class LoginTest extends BaseTest {
 
         Assertions.assertEquals("Invalid credentials", loginPage.errorMessageAppear());
     }
+
+@Test
+    void corectLoginCredentials2(){
+
+   String userPage= loginPage.userNameFromPage();
+   loginPage.enterUsername(userPage);
+
+   String passwordPage= loginPage.passwordFromPage();
+    loginPage.enterPassword(passwordPage);
+
+    loginPage.clickLoginButton();
+
+    Assertions.assertEquals("My Actions", loginPage.equalsMyActions());
+}
+
+
 }
 
