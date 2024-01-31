@@ -13,9 +13,8 @@ import java.util.List;
 
 public class LoginTest extends BaseTest {
 
-
     @Test
-    void getLoginCredential() {
+    void corectLoginCredentials() {
         LoginPage loginPage = new LoginPage(driver);
 
         loginPage.enterUsername("Admin");
@@ -25,9 +24,18 @@ public class LoginTest extends BaseTest {
         loginPage.clickLoginButton();
 //        palaukti();
         Assertions.assertEquals("My Actions", loginPage.equalsMyActions());
-//        palaukti();
     }
+    @Test
+    void wrongLoginCredentials() {
+        LoginPage loginPage = new LoginPage(driver);
 
+        loginPage.enterUsername("Admi");
 
+        loginPage.enterPassword("admin12");
+
+        loginPage.clickLoginButton();
+
+        Assertions.assertEquals("Invalid credentials", loginPage.errorMessageAppear());
+    }
 }
 
