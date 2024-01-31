@@ -18,11 +18,11 @@ public class LoginTest extends BaseTest {
         LoginPage loginPage = new LoginPage(driver);
 
         loginPage.enterUsername("Admin");
-//        palaukti();
+
         loginPage.enterPassword("admin123");
-//        palaukti();
+
         loginPage.clickLoginButton();
-//        palaukti();
+
         Assertions.assertEquals("My Actions", loginPage.equalsMyActions());
     }
     @Test
